@@ -1,0 +1,23 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>DjAngular</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<app-root>Loading...</app-root>
+
+<script src="{% static 'dist/Ang/runtime-es2015.js' %}" type="module"></script>
+<script src="{% static 'dist/Ang/polyfills-es2015.js' %}" type="module"></script>
+<script src="{% static 'dist/Ang/styles-es2015.js' %}" type="module"></script>
+<script src="{% static 'dist/Ang/vendor-es2015.js' %}" type="module"></script>
+<script src="{% static 'dist/Ang/main-es2015.js' %}" type="module"></script>
+</body>
+</html>
+
+{% csrf_token %}

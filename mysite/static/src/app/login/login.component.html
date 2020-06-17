@@ -1,0 +1,25 @@
+<form class="example-form">
+    <mat-form-field class="example-full-width">
+        <mat-label>Username</mat-label>
+        <input matInput [formControl]="usernameFormControl" [errorStateMatcher]="matcher"
+            placeholder="Write your username here" [(ngModel)]="username">
+        <mat-hint>It looks okey!</mat-hint>
+        <mat-error *ngIf="usernameFormControl.hasError('required')">
+            Username is <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
+    <br><br>
+    <mat-form-field class="example-full-width">
+        <mat-label>Password</mat-label>
+        <input type="password" matInput [formControl]="passwordFormControl" [errorStateMatcher]="matcher"
+            placeholder="Write your password here" [(ngModel)]="password">
+        <mat-hint>It looks okey!</mat-hint>
+        <mat-error *ngIf="passwordFormControl.hasError('required')">
+            Password is <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
+</form>
+<br>
+<button mat-raised-button (click)="authUser()">Log-In <mat-icon>login</mat-icon></button>
+<br>
+<p>If you are not registered yet <button mat-button color="warn" (click)="openDialog()">click here!</button></p>

@@ -19,6 +19,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './login/login.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { TreeTableComponent } from './tree-table/tree-table.component';
+import { AddDbComponent } from './add-db/add-db.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { TreeTableComponent } from './tree-table/tree-table.component';
     AppComponent,
     LoginComponent,
     AddUserComponent,
-    TreeTableComponent
+    TreeTableComponent,
+    AddDbComponent
   ],
   imports: [
     BrowserModule,

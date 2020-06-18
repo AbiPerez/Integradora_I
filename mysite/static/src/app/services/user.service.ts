@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHandler, HttpRequest, HttpParams, HttpHeaders } from '@angular/common/http';
-import * as $ from 'jquery'
+import * as $ from 'jquery';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({

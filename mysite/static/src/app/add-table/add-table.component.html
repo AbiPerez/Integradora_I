@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>Add a new table!</h1>
+<div mat-dialog-content>
+    <form class="example-form">
+        <label>Upload file</label>
+        <input type="file" class="example-full-width" accept=".csv" (change)="handleFileInput($event.target.files)">
+    </form>
+</div>
+<br>
+<div mat-dialog-actions>
+    <button mat-raised-button color="accent" (click)="onNoClick()">No Thanks <mat-icon>close</mat-icon></button>
+    <button mat-raised-button color="primary" (click)="addTable()">Add <mat-icon>add</mat-icon></button>
+</div>

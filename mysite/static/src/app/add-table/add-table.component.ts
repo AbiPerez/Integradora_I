@@ -6,17 +6,19 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ErrorStateMatcher } from '@angular/material/core';
 
 @Component({
-  selector: 'app-add-db',
-  templateUrl: './add-db.component.html',
-  styleUrls: ['./add-db.component.css']
+  selector: 'app-add-table',
+  templateUrl: './add-table.component.html',
+  styleUrls: ['./add-table.component.css']
 })
-export class AddDbComponent implements OnInit {
+export class AddTableComponent implements OnInit {
 
+  db: string;
+  file: File;
   name: string;
   nameFormControl = new FormControl('', [Validators.required]);
-  matcher = new MyErrorStateMatcher();
+  matcher = new MyErrorStateMatcher(); s
 
-  constructor(private service: TreeTableService, public dialogRef: MatDialogRef<AddDbComponent>, private _snackBar: MatSnackBar) { }
+  constructor(private service: TreeTableService, public dialogRef: MatDialogRef<AddTableComponent>, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
   }
@@ -25,7 +27,12 @@ export class AddDbComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  addDB() {
+  handleFileInput(files: FileList) {
+    this.file = files.item(0);
+    this.name = files.item(0).name;
+  }
+
+  addTable() {
     let id;
     let list = document.cookie.split(';');
     for (const iterator of list) {
@@ -34,10 +41,8 @@ export class AddDbComponent implements OnInit {
         id = Number.parseInt(item[1]);
       }
     }
-    if (this.name.split("/").length > 1)
-      this.name = '';
-    else {
-      this.service.addDbService(this.name, id);
+    if (this.file != null) {
+      this.service.addTableService(this.file, id, this.db, this.name);
       this.onNoClick();
     }
   }

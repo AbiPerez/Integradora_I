@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddDbComponent } from '../add-db/add-db.component';
 import { TreeTableService } from '../services/tree-table.service';
 import Swal from 'sweetalert2'
+import { AddTableComponent } from '../add-table/add-table.component';
 
 @Component({
   selector: 'app-tree-table',
@@ -12,10 +13,20 @@ import Swal from 'sweetalert2'
 })
 export class TreeTableComponent implements OnInit {
 
-  typesOfShoes: string[] = ['Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers'];
+  dbs: string[];
+  id: number;
   @ViewChild(MatAccordion) accordion: MatAccordion;
 
-  constructor(public dialog: MatDialog, public service: TreeTableService) { }
+  constructor(public dialog: MatDialog, public service: TreeTableService) {
+    let list = document.cookie.split(';');
+    for (const iterator of list) {
+      let item = iterator.split('=');
+      if (item[0].trim() == 'id') {
+        this.id = Number.parseInt(item[1]);
+      }
+    }
+    this.showDBs();
+  }
 
   ngOnInit(): void {
   }
@@ -24,13 +35,18 @@ export class TreeTableComponent implements OnInit {
     const dialogRef = this.dialog.open(AddDbComponent, {
       width: '400px',
     });
+    dialogRef.afterClosed().subscribe(() => this.showDBs());
   }
 
-  addTable() {
-
+  addTable(db: string) {
+    const dialogRef = this.dialog.open(AddTableComponent, {
+      width: '400px',
+    });
+    dialogRef.componentInstance.db = db;
+    dialogRef.afterClosed().subscribe(() => this.showDBs());
   }
 
-  dropDB(name:string) {
+  dropDB(name: string) {
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -41,25 +57,26 @@ export class TreeTableComponent implements OnInit {
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.value) {
-        let id;
-        let list = document.cookie.split(';');
-        for (const iterator of list) {
-          let item = iterator.split('=');
-          if (item[0].trim() == 'id') {
-            id = Number.parseInt(item[1]);
-          }
-        }
-        this.service.dropDbService(name,id)
+        this.service.dropDbService(name, this.id)
+        this.showDBs();
       }
     })
   }
 
-  dropTable() {
+  dropTable(name: string, db: string) {
+    this.service.dropDbTableService(name, this.id, db);
+    this.showDBs();
+  }
+
+  downloadDB(db: string) {
 
   }
 
-  downloadDB() {
-
+  showDBs() {
+    let service = this.service.getDbsService(this.id);
+    service.subscribe((data: any[]) => {
+      this.dbs = data['response'];
+    });
   }
 
 }

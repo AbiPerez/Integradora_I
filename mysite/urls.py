@@ -6,7 +6,10 @@ urlpatterns = [
     path('auth', views.auth_user),
     path('sign-in', views.create_user),
     path('db_add', views.add_db),
+    path('db_table_add', views.add_db_table),
     path('db_drop', views.drop_db),
+    path('db_table_drop', views.drop_db_table),
     path('getNamesDB', views.get_db_names),
-    path('getNamesTables', views.get_db_tables_names)
+    path('getNamesTables', views.get_db_tables_names),
+    path('getDbs', views.get_dbs)
 ]

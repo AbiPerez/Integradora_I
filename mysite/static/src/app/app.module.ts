@@ -20,6 +20,7 @@ import { LoginComponent } from './login/login.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { TreeTableComponent } from './tree-table/tree-table.component';
 import { AddDbComponent } from './add-db/add-db.component';
+import { AddTableComponent } from './add-table/add-table.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { AddDbComponent } from './add-db/add-db.component';
     LoginComponent,
     AddUserComponent,
     TreeTableComponent,
-    AddDbComponent
+    AddDbComponent,
+    AddTableComponent
   ],
   imports: [
     BrowserModule,

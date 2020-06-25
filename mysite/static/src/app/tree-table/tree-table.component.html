@@ -11,21 +11,21 @@ Here are your DB's <button mat-button color="warn" (click)="addDB()">add DB <mat
             <mat-panel-title>
                 {{db[0]}}
             </mat-panel-title>
-            <button mat-icon-button color="accent" (click)="addTable(db[0])" aria-label="Add table">
-                <mat-icon>add_circle</mat-icon>
-            </button>
-            <button mat-icon-button color="accent" (click)="dropDB(db[0])" aria-label="Drop DB">
-                <mat-icon>delete_forever</mat-icon>
-            </button>
-            <button mat-icon-button color="accent" (click)="downloadDB(db[0])" aria-label="Download DB">
-                <mat-icon>get_app</mat-icon>
-            </button>
         </mat-expansion-panel-header>
-
+        <button mat-icon-button color="accent" (click)="addTable(db[0])" aria-label="Add table">
+            <mat-icon>add_circle</mat-icon>
+        </button>
+        <button mat-icon-button color="accent" (click)="dropDB(db[0])" aria-label="Drop DB">
+            <mat-icon>delete_forever</mat-icon>
+        </button>
+        <button mat-icon-button color="accent" (click)="downloadDB(db[0])" aria-label="Download DB">
+            <mat-icon>get_app</mat-icon>
+        </button>
+        <hr>
         <mat-selection-list>
             <mat-list-option *ngFor="let table of db[1]">
                 <span>
-                    {{table}}                
+                    {{table}}
                     <button mat-icon-button color="accent" (click)="dropTable(table, db[0])" aria-label="Drop table">
                         <mat-icon>delete_forever</mat-icon>
                     </button>

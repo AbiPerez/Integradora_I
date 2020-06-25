@@ -12,7 +12,9 @@ export class AppComponent {
   isLoged: boolean = false;
   id: number = null;
 
-  constructor(private _snackBar: MatSnackBar) { this.checkLoged() }
+  constructor(private _snackBar: MatSnackBar) { 
+    this.checkLoged()
+  }
 
   checkLoged() {
     if (this.isLoged == false) {

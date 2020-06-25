@@ -50,10 +50,6 @@ export class TreeTableService {
     reader.onerror = function (error) {
       console.log('Error: ', error);
     };
-
-
-
-
   }
 
   dropDbService(name: string, id: number) {
@@ -92,6 +88,24 @@ export class TreeTableService {
   getDbsService(id: number) {
     const params = new HttpParams({ fromString: 'idUser=' + id });
     return this.httpClient.get('/getDbs', { params });
+  }
+
+  getDbService(id: number, dbName: string) {
+    let params = new HttpParams()
+      .set('idUser', id.toString())
+      .set('nameDB', dbName);
+    this.httpClient.get('/getDb', { params, responseType: 'blob' }).subscribe(data => {
+      let blob = new Blob([data], { type: 'application/zip' });
+      let fileurl = window.URL.createObjectURL(blob);
+      let a = document.createElement('a');
+      document.body.appendChild(a);
+      a.setAttribute('style', 'display: none');
+      a.href = fileurl;
+      a.download = `${dbName}`;
+      a.click();
+      window.URL.revokeObjectURL(fileurl);
+      a.remove();
+    });
   }
 
   private checkStatus(code: number) {

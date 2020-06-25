@@ -11,12 +11,21 @@ import { ErrorStateMatcher } from '@angular/material/core';
   styleUrls: ['./add-db.component.css']
 })
 export class AddDbComponent implements OnInit {
-
+  
+  id: number;
   name: string;
   nameFormControl = new FormControl('', [Validators.required]);
   matcher = new MyErrorStateMatcher();
 
-  constructor(private service: TreeTableService, public dialogRef: MatDialogRef<AddDbComponent>, private _snackBar: MatSnackBar) { }
+  constructor(private service: TreeTableService, public dialogRef: MatDialogRef<AddDbComponent>, private _snackBar: MatSnackBar) {
+    let list = document.cookie.split(';');
+    for (const iterator of list) {
+      let item = iterator.split('=');
+      if (item[0].trim() == 'id') {
+        this.id = Number.parseInt(item[1]);
+      }
+    }
+  }
 
   ngOnInit(): void {
   }
@@ -26,18 +35,10 @@ export class AddDbComponent implements OnInit {
   }
 
   addDB() {
-    let id;
-    let list = document.cookie.split(';');
-    for (const iterator of list) {
-      let item = iterator.split('=');
-      if (item[0].trim() == 'id') {
-        id = Number.parseInt(item[1]);
-      }
-    }
     if (this.name.split("/").length > 1)
       this.name = '';
     else {
-      this.service.addDbService(this.name, id);
+      this.service.addDbService(this.name, this.id);
       this.onNoClick();
     }
   }

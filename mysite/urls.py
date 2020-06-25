@@ -11,5 +11,6 @@ urlpatterns = [
     path('db_table_drop', views.drop_db_table),
     path('getNamesDB', views.get_db_names),
     path('getNamesTables', views.get_db_tables_names),
-    path('getDbs', views.get_dbs)
+    path('getDbs', views.get_dbs),
+    path('getDb', views.download_db)
 ]

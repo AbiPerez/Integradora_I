@@ -1,16 +1,18 @@
+import base64
 import os
+import sys
 import re
 import hashlib
 import shutil
-import base64
+from zipfile import ZipFile
+from django.http import FileResponse
 from rest_framework import generics
 from django.shortcuts import render
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponse
 from django.http import JsonResponse
 from django.views.generic import TemplateView
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from .models import User
-
 from django.core.files.base import ContentFile
 
 
@@ -23,8 +25,8 @@ class Index(TemplateView):
 def auth_user(request, *args, **kwargs):
     name = str(request.POST['name'])
     password = str(request.POST['password'])
-    id = check_user(name, password)
-    return JsonResponse({'id': id})
+    idUser = check_user(name, password)
+    return JsonResponse({'id': idUser})
 
 
 @csrf_protect
@@ -121,14 +123,14 @@ def add_db_table(request, *args, **kwargs):
     fileTable = str(request.POST['fileTable'])
     nameTable = str(request.POST['nameTable']).split('.')[0]
     idUser = str(request.POST['idUser'])
-    format, fileCSV = fileTable.split(';base64,')    
-    existingTables = check_db_table_name(request)
+    format, fileCSV = fileTable.split(';base64,')
+    existingTables = check_db_table_name(idUser, nameDB)
     for item in existingTables:
         if item == nameTable:
             return JsonResponse({'response': 502})
     with open('db_reception/db_list_user_' + idUser + '/' + nameDB + '/' + nameTable + ".csv", "wb") as fh:
         fh.write(base64.b64decode(fileCSV))
-    
+
     return JsonResponse({'response': 203})
 
 
@@ -155,7 +157,17 @@ def drop_db_table(request, *args, **kwargs):
 
 @csrf_protect
 def download_db(request, *args, **kwargs):
-    return JsonResponse({'response': 'ok'})
+    idUser = str(request.GET['idUser'])
+    nameDB = str(request.GET['nameDB'])
+    file_path = 'db_reception/db_list_user_' + idUser + '/temp_' + nameDB
+    dir_path = 'db_reception/db_list_user_' + idUser + '/' + nameDB
+    zf = shutil.make_archive(file_path, 'zip', dir_path)
+    file_path = file_path + '.zip'
+    zf = open(file_path, 'rb')
+    response = HttpResponse(zf, content_type="application/zip")
+    response['Content-Disposition'] = 'attachment; filename="temp.zip"'
+    os.remove(file_path)
+    return response
 
 
 def check_user(name, password):
@@ -181,10 +193,9 @@ def check_db_names(request):
     return dbs
 
 
-def check_db_table_name(request):
-    idUser = str(request.POST['idUser'])
-    nameDB = str(request.POST['nameDB'])
-    imgpath = os.path.join(os.getcwd(), 'db_reception/db_list_user_' + idUser + '/' + nameDB) + os.sep
+def check_db_table_name(id, db):
+    imgpath = os.path.join(
+        os.getcwd(), 'db_reception/db_list_user_' + id + '/' + db) + os.sep
     dbTables = []
     for root, dirnames, filenames in os.walk(imgpath):
         for filename in filenames:

@@ -12,13 +12,22 @@ import { ErrorStateMatcher } from '@angular/material/core';
 })
 export class AddTableComponent implements OnInit {
 
+  id: number;
   db: string;
   file: File;
   name: string;
   nameFormControl = new FormControl('', [Validators.required]);
   matcher = new MyErrorStateMatcher(); s
 
-  constructor(private service: TreeTableService, public dialogRef: MatDialogRef<AddTableComponent>, private _snackBar: MatSnackBar) { }
+  constructor(private service: TreeTableService, public dialogRef: MatDialogRef<AddTableComponent>, private _snackBar: MatSnackBar) {
+    let list = document.cookie.split(';');
+    for (const iterator of list) {
+      let item = iterator.split('=');
+      if (item[0].trim() == 'id') {
+        this.id = Number.parseInt(item[1]);
+      }
+    }
+   }
 
   ngOnInit(): void {
   }
@@ -33,16 +42,8 @@ export class AddTableComponent implements OnInit {
   }
 
   addTable() {
-    let id;
-    let list = document.cookie.split(';');
-    for (const iterator of list) {
-      let item = iterator.split('=');
-      if (item[0].trim() == 'id') {
-        id = Number.parseInt(item[1]);
-      }
-    }
     if (this.file != null) {
-      this.service.addTableService(this.file, id, this.db, this.name);
+      this.service.addTableService(this.file, this.id, this.db, this.name);
       this.onNoClick();
     }
   }

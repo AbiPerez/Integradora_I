@@ -5,6 +5,9 @@ import { AddDbComponent } from '../add-db/add-db.component';
 import { TreeTableService } from '../services/tree-table.service';
 import Swal from 'sweetalert2'
 import { AddTableComponent } from '../add-table/add-table.component';
+import * as $ from 'jquery';
+import { DomSanitizer } from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-tree-table',
@@ -15,9 +18,10 @@ export class TreeTableComponent implements OnInit {
 
   dbs: string[];
   id: number;
+
   @ViewChild(MatAccordion) accordion: MatAccordion;
 
-  constructor(public dialog: MatDialog, public service: TreeTableService) {
+  constructor(public dialog: MatDialog, public service: TreeTableService, private sanitizer: DomSanitizer) {
     let list = document.cookie.split(';');
     for (const iterator of list) {
       let item = iterator.split('=');
@@ -69,7 +73,7 @@ export class TreeTableComponent implements OnInit {
   }
 
   downloadDB(db: string) {
-
+    this.service.getDbService(this.id, db);
   }
 
   showDBs() {

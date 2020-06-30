@@ -12,7 +12,7 @@ export class AppComponent {
   isLoged: boolean = false;
   id: number = null;
 
-  constructor(private _snackBar: MatSnackBar) { 
+  constructor(private _snackBar: MatSnackBar) {
     this.checkLoged()
   }
 
@@ -21,10 +21,11 @@ export class AppComponent {
       let list = document.cookie.split(';');
       for (const iterator of list) {
         let item = iterator.split('=');
-        if (item[0].trim() == 'id') {
-          this.id = Number.parseInt(item[1]);
-        }
+        if (item[0].trim() == 'id')
+          if (item[1] != '')
+            this.id = Number.parseInt(item[1]);
       }
+      console.log(this.id);
       if (this.id != null) {
         this.isLoged = true;
         this.openSnackBar('Welcome you are logged!', this._snackBar);
@@ -35,7 +36,7 @@ export class AppComponent {
   }
 
   logOut() {
-    document.cookie = 'id=undefined'
+    document.cookie = 'id='
     this.isLoged = false;
     this.id = null;
   }

@@ -17,6 +17,9 @@
         <mat-error *ngIf="passwordFormControl.hasError('required')">
             Password is <strong>required</strong>
         </mat-error>
+        <mat-error *ngIf="passwordFormControl.hasError('minlength')">
+            Password min length is <strong>8 characters</strong>
+        </mat-error>
     </mat-form-field>
 </form>
 <br>

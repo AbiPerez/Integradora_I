@@ -15,10 +15,12 @@ export class LoginComponent implements OnInit {
   username: string = '';
   password: string = '';
   usernameFormControl = new FormControl('', [
-    Validators.required
+    Validators.required,
+    Validators.minLength(8)
   ]);
   passwordFormControl = new FormControl('', [
-    Validators.required
+    Validators.required,
+    Validators.minLength(8)
   ]);
 
   matcher = new MyErrorStateMatcher();
@@ -29,7 +31,7 @@ export class LoginComponent implements OnInit {
   }
 
   authUser() {
-    if (this.username.length != 0 && this.password.length != 0) {
+    if (this.username.length >= 8 && this.password.length >= 8) {
       this.service.httpAuthUser(this.username, this.password);
     }
     else {

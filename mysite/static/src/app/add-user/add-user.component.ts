@@ -16,9 +16,9 @@ export class AddUserComponent implements OnInit {
   password: string = '';
   passwordConfirm: string = '';
 
-  usernameFormControl = new FormControl('', [Validators.required]);
-  passwordFormControl = new FormControl('', [Validators.required]);
-  passwordConfirmFormControl = new FormControl('', [Validators.required]);
+  usernameFormControl = new FormControl('', [Validators.required, Validators.minLength(8)]);
+  passwordFormControl = new FormControl('', [Validators.required, Validators.minLength(8)]);
+  passwordConfirmFormControl = new FormControl('', [Validators.required, Validators.minLength(8)]);
 
   matcher = new MyErrorStateMatcher();
 
@@ -29,7 +29,7 @@ export class AddUserComponent implements OnInit {
 
   addUser() {
     if (this.password == this.passwordConfirm) {
-      if (this.username.length != 0 && this.password.length != 0) {
+      if (this.username.length >= 8 && this.password.length >= 8) {
         this.service.httpCreateUser(this.username, this.password);
         this.onNoClick()
       }

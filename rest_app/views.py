@@ -4,6 +4,8 @@ import sys
 import re
 import hashlib
 import shutil
+import numpy as np
+import pandas as pd
 from zipfile import ZipFile
 from django.http import FileResponse
 from rest_framework import generics
@@ -96,7 +98,12 @@ def get_db_tables_names(request, *args, **kwargs):
 
 @csrf_protect
 def get_db_table_records(request, *args, **kwargs):
-    return JsonResponse({'response': 'ok'})
+    idUser = str(request.POST['idUser'])
+    nameDB = str(request.POST['nameDB'])
+    nameTable = str(request.POST['nameTable'])
+    dataFrame = pd.read_csv('db_reception/db_list_user_' + idUser + '/' + nameDB + '/' + nameTable + '.csv')
+    
+    return JsonResponse({'response': dataFrame.to_json(orient='columns')})
 
 
 @csrf_protect

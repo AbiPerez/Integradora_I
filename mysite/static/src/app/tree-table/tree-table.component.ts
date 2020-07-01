@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { MatAccordion } from '@angular/material/expansion';
 import { MatDialog } from '@angular/material/dialog';
 import { AddDbComponent } from '../add-db/add-db.component';
@@ -19,6 +19,7 @@ export class TreeTableComponent implements OnInit {
   dbs: string[];
   id: number;
 
+  @Output() dbActiveEvent = new EventEmitter<string>();
   @ViewChild(MatAccordion) accordion: MatAccordion;
 
   constructor(public dialog: MatDialog, public service: TreeTableService, private sanitizer: DomSanitizer) {
@@ -81,6 +82,10 @@ export class TreeTableComponent implements OnInit {
     service.subscribe((data: any[]) => {
       this.dbs = data['response'];
     });
+  }
+
+  dbTableCheked(dbs_selected) {
+    this.dbActiveEvent.emit(dbs_selected);
   }
 
 }

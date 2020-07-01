@@ -11,6 +11,7 @@ export class AppComponent {
 
   isLoged: boolean = false;
   id: number = null;
+  activeTables: string[] = [];
 
   constructor(private _snackBar: MatSnackBar) {
     this.checkLoged()
@@ -25,7 +26,6 @@ export class AppComponent {
           if (item[1] != '')
             this.id = Number.parseInt(item[1]);
       }
-      console.log(this.id);
       if (this.id != null) {
         this.isLoged = true;
         this.openSnackBar('Welcome you are logged!', this._snackBar);
@@ -47,6 +47,10 @@ export class AppComponent {
       horizontalPosition: 'right',
       verticalPosition: 'top',
     });
+  }
+
+  receiveDbActive($event) {
+    this.activeTables = $event;
   }
 
 }

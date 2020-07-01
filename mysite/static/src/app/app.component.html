@@ -10,7 +10,7 @@
         </button>
       </p>
       <hr>
-      <app-tree-table></app-tree-table>
+      <app-tree-table (dbActiveEvent)="receiveDbActive($event)"></app-tree-table>
     </div>
 
     <ng-template #notLoggedSidebar>
@@ -26,7 +26,7 @@
     </button>
     <div *ngIf="isLoged==true;else notLoggedContent">
 
-      <h1>ok</h1>
+      <app-active-tables [activeTables]="activeTables"></app-active-tables>
 
     </div>
 

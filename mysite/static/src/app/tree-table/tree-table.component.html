@@ -22,8 +22,8 @@ Here are your DB's <button mat-button color="warn" (click)="addDB()">add DB <mat
             <mat-icon>get_app</mat-icon>
         </button>
         <hr>
-        <mat-selection-list>
-            <mat-list-option *ngFor="let table of db[1]">
+        <mat-selection-list #dbs_selected [multiple]="false">
+            <mat-list-option *ngFor="let table of db[1]" [value]="table" (click)="dbTableCheked(dbs_selected.selectedOptions.selected[0]?.value)">
                 <span>
                     {{table}}
                     <button mat-icon-button color="accent" (click)="dropTable(table, db[0])" aria-label="Drop table">

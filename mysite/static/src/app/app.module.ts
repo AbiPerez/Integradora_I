@@ -21,6 +21,7 @@ import { AddUserComponent } from './add-user/add-user.component';
 import { TreeTableComponent } from './tree-table/tree-table.component';
 import { AddDbComponent } from './add-db/add-db.component';
 import { AddTableComponent } from './add-table/add-table.component';
+import { ActiveTablesComponent } from './active-tables/active-tables.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { AddTableComponent } from './add-table/add-table.component';
     AddUserComponent,
     TreeTableComponent,
     AddDbComponent,
-    AddTableComponent
+    AddTableComponent,
+    ActiveTablesComponent
   ],
   imports: [
     BrowserModule,

@@ -93,8 +93,10 @@ def get_db_table_records(request, *args, **kwargs):
     nameDB = str(request.POST['nameDB'])
     nameTable = str(request.POST['nameTable'])
     dataFrame = pd.read_csv('db_reception/db_list_user_' + idUser + '/' + nameDB + '/' + nameTable + '.csv')
-    
-    return JsonResponse({'response': dataFrame.to_json(orient='columns')})
+    return JsonResponse({
+        'columns': list(dataFrame.columns),
+        'data': dataFrame.values.tolist()  
+        })
 
 @csrf_protect
 def set_db_table(request, *args, **kwargs):

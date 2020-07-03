@@ -23,7 +23,7 @@ Here are your DB's <button mat-button color="warn" (click)="addDB()">add DB <mat
         </button>
         <hr>
         <mat-selection-list #dbs_selected [multiple]="false">
-            <mat-list-option *ngFor="let table of db[1]" [value]="table" (click)="dbTableCheked(dbs_selected.selectedOptions.selected[0]?.value)">
+            <mat-list-option *ngFor="let table of db[1]" [value]="table" (click)="drawer.toggle(); dbTableCheked(dbs_selected.selectedOptions.selected[0]?.value, db)">
                 <span>
                     {{table}}
                     <button mat-icon-button color="accent" (click)="dropTable(table, db[0])" aria-label="Drop table">
@@ -32,6 +32,5 @@ Here are your DB's <button mat-button color="warn" (click)="addDB()">add DB <mat
                 </span>
             </mat-list-option>
         </mat-selection-list>
-
     </mat-expansion-panel>
 </mat-accordion>

@@ -1,7 +1,27 @@
-<div>
-
-</div>
-<mat-divider></mat-divider>
-<div>
-
+<div *ngIf="activeTables">
+    <br>
+    <section>
+        <div class="example-button-row" *ngIf="activeTables">
+            <button mat-flat-button color="primary">Add column <mat-icon>add_circle_outline</mat-icon></button>
+            <button mat-flat-button color="warn">Drop column <mat-icon>delete_outline</mat-icon></button>&nbsp;|&nbsp;
+            <button mat-flat-button color="primary">Add rule <mat-icon>add_circle_outline</mat-icon></button>
+            <button mat-flat-button color="warn">Drop rule <mat-icon>delete_outline</mat-icon></button>
+        </div>
+    </section>
+    <mat-divider></mat-divider>
+    <div class="example-container mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" *ngIf="dataSource">
+            <div *ngFor="let item of displayedColumns">
+                <ng-container matColumnDef={{item}}>
+                    <th mat-header-cell *matHeaderCellDef> {{item}} </th>
+                    <td mat-cell *matCellDef="let element"> {{element[lengthColumns[item]]}} </td>
+                </ng-container>
+            </div>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
+    <div *ngIf="isCharging" class="loading">
+        <mat-spinner></mat-spinner>
+    </div>
 </div>

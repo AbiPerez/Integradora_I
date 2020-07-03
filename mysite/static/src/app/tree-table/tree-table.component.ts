@@ -1,13 +1,11 @@
-import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter, Input } from '@angular/core';
 import { MatAccordion } from '@angular/material/expansion';
 import { MatDialog } from '@angular/material/dialog';
 import { AddDbComponent } from '../add-db/add-db.component';
 import { TreeTableService } from '../services/tree-table.service';
 import Swal from 'sweetalert2'
 import { AddTableComponent } from '../add-table/add-table.component';
-import * as $ from 'jquery';
-import { DomSanitizer } from '@angular/platform-browser';
-
+import { MatDrawer } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-tree-table',
@@ -16,13 +14,16 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class TreeTableComponent implements OnInit {
 
+  @Input()
+  drawer: MatDrawer;
   dbs: string[];
   id: number;
 
   @Output() dbActiveEvent = new EventEmitter<string>();
+  @Output() tableActiveEvent = new EventEmitter<string>();
   @ViewChild(MatAccordion) accordion: MatAccordion;
 
-  constructor(public dialog: MatDialog, public service: TreeTableService, private sanitizer: DomSanitizer) {
+  constructor(public dialog: MatDialog, public service: TreeTableService) {
     let list = document.cookie.split(';');
     for (const iterator of list) {
       let item = iterator.split('=');
@@ -33,8 +34,7 @@ export class TreeTableComponent implements OnInit {
     this.showDBs();
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   addDB() {
     const dialogRef = this.dialog.open(AddDbComponent, {
@@ -84,8 +84,9 @@ export class TreeTableComponent implements OnInit {
     });
   }
 
-  dbTableCheked(dbs_selected) {
-    this.dbActiveEvent.emit(dbs_selected);
+  dbTableCheked(table_selected, db_selected) {
+    this.dbActiveEvent.emit(db_selected);
+    this.tableActiveEvent.emit(table_selected);
   }
 
 }

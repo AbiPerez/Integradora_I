@@ -11,7 +11,8 @@ export class AppComponent {
 
   isLoged: boolean = false;
   id: number = null;
-  activeTables: string[] = [];
+  activeTables: string = '';
+  activeDb: string = '';
 
   constructor(private _snackBar: MatSnackBar) {
     this.checkLoged()
@@ -36,7 +37,7 @@ export class AppComponent {
   }
 
   logOut() {
-    document.cookie = 'id='
+    document.cookie = 'id=';
     this.isLoged = false;
     this.id = null;
   }
@@ -49,8 +50,12 @@ export class AppComponent {
     });
   }
 
-  receiveDbActive($event) {
+  receiveTableActive($event) {
     this.activeTables = $event;
+  }
+
+  receiveDbActive($event) {
+    this.activeDb = $event;
   }
 
 }

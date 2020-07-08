@@ -1,6 +1,7 @@
 Here are your DB's <button mat-button color="warn" (click)="addDB()">add DB <mat-icon>add_circle</mat-icon>
 </button>
-<hr>
+<mat-divider></mat-divider>
+<br>
 <div class="example-action-buttons">
     <button mat-button (click)="accordion.openAll()">Expand All</button>
     <button mat-button (click)="accordion.closeAll()">Collapse All</button>
@@ -12,21 +13,22 @@ Here are your DB's <button mat-button color="warn" (click)="addDB()">add DB <mat
                 {{db[0]}}
             </mat-panel-title>
         </mat-expansion-panel-header>
-        <button mat-icon-button color="accent" (click)="addTable(db[0])" aria-label="Add table">
-            <mat-icon>add_circle</mat-icon>
+        <button mat-button color="primary" (click)="addTable(db[0])" aria-label="Add table">
+            <mat-icon>add_circle</mat-icon> Add table
         </button>
-        <button mat-icon-button color="accent" (click)="dropDB(db[0])" aria-label="Drop DB">
-            <mat-icon>delete_forever</mat-icon>
+        <button mat-button color="warn" (click)="dropDB(db[0])" aria-label="Drop DB">
+            <mat-icon>delete_forever</mat-icon> Drop
         </button>
-        <button mat-icon-button color="accent" (click)="downloadDB(db[0])" aria-label="Download DB">
-            <mat-icon>get_app</mat-icon>
+        <button mat-button (click)="downloadDB(db[0])" aria-label="Download DB">
+            <mat-icon>get_app</mat-icon> Download
         </button>
-        <hr>
+        <mat-divider></mat-divider>
+        <br>
         <mat-selection-list #dbs_selected [multiple]="false">
             <mat-list-option *ngFor="let table of db[1]" [value]="table" (click)="drawer.toggle(); dbTableCheked(dbs_selected.selectedOptions.selected[0]?.value, db)">
                 <span>
                     {{table}}
-                    <button mat-icon-button color="accent" (click)="dropTable(table, db[0])" aria-label="Drop table">
+                    <button mat-icon-button color="warn" (click)="dropTable(table, db[0])" aria-label="Drop table">
                         <mat-icon>delete_forever</mat-icon>
                     </button>
                 </span>

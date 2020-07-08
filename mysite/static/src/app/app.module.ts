@@ -15,6 +15,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,6 +27,10 @@ import { TreeTableComponent } from './tree-table/tree-table.component';
 import { AddDbComponent } from './add-db/add-db.component';
 import { AddTableComponent } from './add-table/add-table.component';
 import { ActiveTablesComponent } from './active-tables/active-tables.component';
+import { AddColumnComponent } from './add-column/add-column.component';
+import { DropColumnComponent } from './drop-column/drop-column.component';
+import { DropRuleComponent } from './drop-rule/drop-rule.component';
+import { AddRuleComponent } from './add-rule/add-rule.component';
 
 
 @NgModule({
@@ -35,7 +41,11 @@ import { ActiveTablesComponent } from './active-tables/active-tables.component';
     TreeTableComponent,
     AddDbComponent,
     AddTableComponent,
-    ActiveTablesComponent
+    ActiveTablesComponent,
+    AddColumnComponent,
+    DropColumnComponent,
+    DropRuleComponent,
+    AddRuleComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +66,9 @@ import { ActiveTablesComponent } from './active-tables/active-tables.component';
     MatListModule,
     MatTableModule,
     MatPaginatorModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatTabsModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

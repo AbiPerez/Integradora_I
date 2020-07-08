@@ -5,7 +5,8 @@
         You are logged! <button mat-button color="warn" (click)="logOut()">Log-out <mat-icon>exit_to_app</mat-icon>
         </button>
       </p>
-      <hr>
+      <mat-divider></mat-divider>
+      <br>
       <app-tree-table (dbActiveEvent)="receiveDbActive($event)" (tableActiveEvent)="receiveTableActive($event)" [drawer]="drawer">
       </app-tree-table>
     </div>
@@ -19,6 +20,13 @@
     <button mat-raised-button class="button-menu" (click)="drawer.toggle(); checkLoged();">
       <mat-icon>menu_open</mat-icon>
     </button>
+    <ng-container *ngIf="!activeDb"> 
+      <br>
+      <br>
+      <mat-icon style="font-size: 48px;">reply</mat-icon>
+      <h1>No table selected!</h1>
+      <h2>Search on the sidebar to add or view some item!</h2>
+    </ng-container>
     <div *ngIf="isLoged==true;else notLoggedContent">
       <app-active-tables [activeTables]="activeTables" [activeDb]="activeDb"></app-active-tables>
     </div>

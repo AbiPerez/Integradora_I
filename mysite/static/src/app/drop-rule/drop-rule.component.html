@@ -1,0 +1,20 @@
+<form class="example-form">
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Select a rule</mat-label>
+        <mat-select [(value)]="ruleToDrop" [formControl]="ruleToDropFormControl"
+            [errorStateMatcher]="matcher">
+            <mat-option *ngFor="let item of rules" value="{{item}}">{{item}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="ruleToDropFormControl.hasError('required')">
+            Rule select is <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
+
+    <br><br>
+
+    <div mat-dialog-actions class="text-center">
+        <button mat-flat-button (click)="onNoClick()">No Thanks</button>
+        <button mat-flat-button color="primary" (click)="dropRule()">
+            Add rule <mat-icon>add_circle_outline</mat-icon></button>
+    </div>
+</form>

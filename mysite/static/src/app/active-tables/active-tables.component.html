@@ -1,14 +1,20 @@
+<br>
 <div *ngIf="activeTables">
+    <div class="example-button-row" *ngIf="activeTables">
+        <button mat-stroked-button color="accent" (click)="openAddColumnDialog()">Add column<mat-icon>
+                add_circle_outline
+            </mat-icon></button>
+        <button mat-stroked-button color="accent" (click)="openDropColumnDialog()">Drop column<mat-icon>
+                delete_outline
+            </mat-icon></button>
+        <button mat-stroked-button color="accent" (click)="openAddRuleDialog()">Add rule<mat-icon>
+                add_circle_outline
+            </mat-icon></button>
+        <button mat-stroked-button color="accent" (click)="openDropRuleDialog()">Drop rule<mat-icon>
+                delete_outline
+            </mat-icon></button>
+    </div>
     <br>
-    <section>
-        <div class="example-button-row" *ngIf="activeTables">
-            <button mat-flat-button color="primary">Add column <mat-icon>add_circle_outline</mat-icon></button>
-            <button mat-flat-button color="warn">Drop column <mat-icon>delete_outline</mat-icon></button>&nbsp;|&nbsp;
-            <button mat-flat-button color="primary">Add rule <mat-icon>add_circle_outline</mat-icon></button>
-            <button mat-flat-button color="warn">Drop rule <mat-icon>delete_outline</mat-icon></button>
-        </div>
-    </section>
-    <mat-divider></mat-divider>
     <div class="example-container mat-elevation-z8">
         <table mat-table [dataSource]="dataSource" *ngIf="dataSource">
             <div *ngFor="let item of displayedColumns">

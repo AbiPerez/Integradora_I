@@ -1,0 +1,60 @@
+<form class="example-form">
+    <mat-form-field class="example-full-width">
+        <mat-label>New column name</mat-label>
+        <input matInput [formControl]="nameAddColumnFormControl" [errorStateMatcher]="matcher"
+            placeholder="Write here your new column name" [(ngModel)]="nameAddColumn">
+        <mat-error *ngIf="nameAddColumnFormControl.hasError('required')">
+            Name is <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
+
+    <br><br>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Select a column</mat-label>
+        <mat-select [(value)]="firstSelectedAddColumn" [formControl]="firstSelectedAddColumnFormControl"
+            [errorStateMatcher]="matcher">
+            <mat-option *ngFor="let item of displayedColumns" value="{{item}}">{{item}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="firstSelectedAddColumnFormControl.hasError('required')">
+            Column select is <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
+
+    <br><br>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Select an operation</mat-label>
+        <mat-select [(value)]="operationSelectedAddColumn" [formControl]="operationSelectedAddColumnFormControl"
+            [errorStateMatcher]="matcher">
+            <mat-option value="+">+</mat-option>
+            <mat-option value="-">-</mat-option>
+            <mat-option value="*">*</mat-option>
+            <mat-option value="/">/</mat-option>
+        </mat-select>
+        <mat-error *ngIf="operationSelectedAddColumnFormControl.hasError('required')">
+            Operation select is <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
+
+    <br><br>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Select another column</mat-label>
+        <mat-select [(value)]="secondSelectedAddColumn" [formControl]="secondSelectedAddColumnFormControl"
+            [errorStateMatcher]="matcher">
+            <mat-option *ngFor="let item of displayedColumns" value="{{item}}">{{item}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="secondSelectedAddColumnFormControl.hasError('required')">
+            Column select is <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
+
+    <br><br>
+
+    <div mat-dialog-actions class="text-center">
+        <button mat-flat-button (click)="onNoClick()">No Thanks</button>
+        <button mat-flat-button color="primary" (click)="addColumn()">
+            Add column <mat-icon>add_circle_outline</mat-icon></button>
+    </div>
+</form>

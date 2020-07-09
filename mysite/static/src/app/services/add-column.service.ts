@@ -16,7 +16,7 @@ export class AddColumnService {
     let openSnackBar = this.openSnackBar;
     let checkStatus = this.checkStatus;
     let snackBar = this._snackBar;
-    $.post('/db_add',
+    $.post('/set_new_column',
       {
         "csrfmiddlewaretoken": cookie['value'],
         "idUser": idUser,

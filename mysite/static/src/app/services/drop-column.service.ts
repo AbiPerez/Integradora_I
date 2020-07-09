@@ -16,13 +16,13 @@ export class DropColumnService {
     let openSnackBar = this.openSnackBar;
     let checkStatus = this.checkStatus;
     let snackBar = this._snackBar;
-    $.post('/db_add',
+    $.post('/drop_column',
       {
         "csrfmiddlewaretoken": cookie['value'],
         "idUser": idUser,
         "dbName": dbName,
         "tableName": tableName,
-        "columnName": columnName
+        "columnName": columnName,
       }, function (data) {
         let message = checkStatus(data['response']);
         openSnackBar(message, snackBar);

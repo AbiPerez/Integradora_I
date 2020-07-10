@@ -10,7 +10,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./drop-rule.component.css']
 })
 export class DropRuleComponent implements OnInit {
-  rules: any[];
+  rules: any[] = [];
   rulesTrated: any[] = [];
   idUser;
   dbName;

@@ -6,6 +6,7 @@ import pandas as pd
 import re
 import shutil
 import sys
+import json
 
 from django.core.files.base import ContentFile
 from django.http import HttpRequest, HttpResponse, JsonResponse, FileResponse
@@ -118,8 +119,14 @@ def get_db_table_records(request, *args, **kwargs):
     idUser = str(request.POST['idUser'])
     nameDB = str(request.POST['nameDB'])
     nameTable = str(request.POST['nameTable'])
+    
+    rulesToApply = json.loads(request.POST['rulesToApply'])
+    if rulesToApply != 'noRules':
+        print(rulesToApply)
+    
     dataFrame = pd.read_csv('db_reception/db_list_user_' +
                             idUser + '/' + nameDB + '/' + nameTable + '.csv')
+    
     return JsonResponse({
         'columns': list(dataFrame.columns),
         'data': dataFrame.values.tolist()

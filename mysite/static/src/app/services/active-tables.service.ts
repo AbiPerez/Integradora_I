@@ -8,7 +8,11 @@ export class ActiveTablesService {
 
   constructor() { }
 
-  getTableRecordsService(id: number, table: string, db: string) {
+  getTableRecordsService(id: number, table: string, db: string, rules) {
+    if (rules.length == 0)
+      rules = JSON.stringify(['noRules']);
+    else  
+      rules = JSON.stringify(rules);
     let cookie = document.getElementsByName('csrfmiddlewaretoken')[0];
     return $.post(
       'get_records',
@@ -16,7 +20,8 @@ export class ActiveTablesService {
         "csrfmiddlewaretoken": cookie['value'],
         "idUser": id,
         "nameDB": db[0],
-        "nameTable": table
+        "nameTable": table,
+        "rulesToApply": rules
       }
     );
   }

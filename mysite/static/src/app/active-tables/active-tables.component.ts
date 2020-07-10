@@ -42,7 +42,7 @@ export class ActiveTablesComponent implements OnInit, OnChanges {
   chargeDataOnWorkSpace() {
     this.isCharging = true;
     if (this.activeTables != '') {
-      this.service.getTableRecordsService(this.id, this.activeTables, this.activeDb).done(
+      this.service.getTableRecordsService(this.id, this.activeTables, this.activeDb, this.rules).done(
         (data: any) => {
           this.displayedColumns = new Array();
           let i = 0;
@@ -96,7 +96,8 @@ export class ActiveTablesComponent implements OnInit, OnChanges {
         "table": this.activeTables
       }
     }).afterClosed().subscribe(data => {
-      this.rules.push(data);
+      if(data!=undefined)
+        this.rules.push(data);
       this.chargeDataOnWorkSpace();
     });
   }
@@ -111,7 +112,8 @@ export class ActiveTablesComponent implements OnInit, OnChanges {
         "table": this.activeTables
       }
     }).afterClosed().subscribe(data => {
-      this.rules = data;
+      if (data != undefined)
+        this.rules = data;
       this.chargeDataOnWorkSpace();
     });
   }

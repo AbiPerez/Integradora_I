@@ -2,7 +2,6 @@ import { Component, OnInit, Input, Inject } from '@angular/core';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { FormGroupDirective, FormControl, NgForm, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { AddRuleService } from '../services/add-rule.service';
 
 @Component({
   selector: 'app-add-rule',
@@ -17,17 +16,18 @@ export class AddRuleComponent implements OnInit {
   tableName;
   matcher = new MyErrorStateMatcher();
 
-  columnToApply: string;
+  rule: { column: string, rule: string, fValue: string, sValue: string };
+  columnToApply: string = '';
   columnToApplyFormControl = new FormControl('', [Validators.required]);
-  ruleSelectedAddRule: string;
+  ruleSelectedAddRule: string = '';
   ruleSelectedAddRuleFormControl = new FormControl('', [Validators.required]);
-  firstValueRule: string;
+  firstValueRule: string = '';
   firstValueRuleFormControl = new FormControl('', [Validators.required]);
-  secondValueRule: string;
+  secondValueRule: string = '';
   secondValueRuleFormControl = new FormControl('', [Validators.required]);
 
   constructor(public dialogRef: MatDialogRef<AddRuleComponent>,
-    @Inject(MAT_DIALOG_DATA) public data, private service: AddRuleService) {
+    @Inject(MAT_DIALOG_DATA) public data) {
     this.displayedColumns = data.columns;
     this.idUser = data.id;
     this.dbName = data.db;
@@ -38,13 +38,31 @@ export class AddRuleComponent implements OnInit {
   }
 
   addRule(): void {
-    // this.service.addColumnService(this.dbName, this.tableName, this.nameAddColumn, this.idUser,
-    //   this.firstSelectedAddColumn, this.secondSelectedAddColumn, this.operationSelectedAddColumn);
-    this.onNoClick();
+    if (this.columnToApply != '')
+      if (this.ruleSelectedAddRule != '')
+        if (this.firstValueRule != '') {
+          if (this.ruleSelectedAddRule == '<>' && this.secondValueRule == '')
+            this.secondValueRuleFormControl.hasError('required');
+          else {
+            this.rule = {
+              column: this.columnToApply,
+              rule: this.ruleSelectedAddRule,
+              fValue: this.firstValueRule,
+              sValue: this.secondValueRule
+            }
+            this.onNoClick();
+          }
+        }
+        else
+          this.firstValueRuleFormControl.hasError('required');
+      else
+        this.ruleSelectedAddRuleFormControl.hasError('required');
+    else
+      this.columnToApplyFormControl.hasError('required');
   }
 
   onNoClick(): void {
-    this.dialogRef.close('ok');
+    this.dialogRef.close(this.rule);
   }
 
 }

@@ -16,7 +16,7 @@ export class DropColumnComponent implements OnInit {
   dbName;
   tableName;
   matcher = new MyErrorStateMatcher();
-  selectedDropColumn: string;
+  selectedDropColumn: string = '';
   selectedDropColumnFormControl = new FormControl('', [Validators.required],);
 
   constructor(public dialogRef: MatDialogRef<DropColumnComponent>,
@@ -31,8 +31,12 @@ export class DropColumnComponent implements OnInit {
   }
 
   dropColumn(): void {
-    this.service.dropColumnService(this.dbName, this.tableName, this.selectedDropColumn, this.idUser);
-    this.onNoClick();
+    if (this.selectedDropColumn != '') {
+      this.service.dropColumnService(this.dbName, this.tableName, this.selectedDropColumn, this.idUser);
+      this.onNoClick();
+    }
+    else
+      this.selectedDropColumnFormControl.hasError('required')
   }
 
   onNoClick(): void {

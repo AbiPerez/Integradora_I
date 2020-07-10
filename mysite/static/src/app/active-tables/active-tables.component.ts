@@ -22,7 +22,7 @@ export class ActiveTablesComponent implements OnInit, OnChanges {
   displayedColumns = Array();
   lengthColumns = Array();
   dataSource: any[];
-  rules: any[];
+  rules: any[] = [];
 
   constructor(private service: ActiveTablesService, public dialog: MatDialog) {
     let list = document.cookie.split(';');
@@ -68,7 +68,6 @@ export class ActiveTablesComponent implements OnInit, OnChanges {
         "table": this.activeTables
       }
     }).afterClosed().subscribe(data => {
-      console.log(data)
       this.chargeDataOnWorkSpace();
     });
   }
@@ -83,7 +82,6 @@ export class ActiveTablesComponent implements OnInit, OnChanges {
         "table": this.activeTables
       }
     }).afterClosed().subscribe(data => {
-      console.log(data);
       this.chargeDataOnWorkSpace();
     });
   }
@@ -98,7 +96,7 @@ export class ActiveTablesComponent implements OnInit, OnChanges {
         "table": this.activeTables
       }
     }).afterClosed().subscribe(data => {
-      console.log(data)
+      this.rules.push(data);
       this.chargeDataOnWorkSpace();
     });
   }
@@ -113,7 +111,7 @@ export class ActiveTablesComponent implements OnInit, OnChanges {
         "table": this.activeTables
       }
     }).afterClosed().subscribe(data => {
-      console.log(data)
+      this.rules = data;
       this.chargeDataOnWorkSpace();
     });
   }

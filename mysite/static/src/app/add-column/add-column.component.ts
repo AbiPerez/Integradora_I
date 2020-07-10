@@ -16,13 +16,13 @@ export class AddColumnComponent implements OnInit {
   dbName;
   tableName;
   matcher = new MyErrorStateMatcher();
-  nameAddColumn: string;
+  nameAddColumn: string = '';
   nameAddColumnFormControl = new FormControl('', [Validators.required]);
-  firstSelectedAddColumn: string;
+  firstSelectedAddColumn: string = '';
   firstSelectedAddColumnFormControl = new FormControl('', [Validators.required]);
-  secondSelectedAddColumn: string;
+  secondSelectedAddColumn: string = '';
   secondSelectedAddColumnFormControl = new FormControl('', [Validators.required]);
-  operationSelectedAddColumn: string;
+  operationSelectedAddColumn: string = '';
   operationSelectedAddColumnFormControl = new FormControl('', [Validators.required]);
 
   constructor(public dialogRef: MatDialogRef<AddColumnComponent>,
@@ -37,9 +37,22 @@ export class AddColumnComponent implements OnInit {
   }
 
   addColumn(): void {
-    this.service.addColumnService(this.dbName, this.tableName, this.nameAddColumn, this.idUser,
-      this.firstSelectedAddColumn, this.secondSelectedAddColumn, this.operationSelectedAddColumn);
-    this.onNoClick();
+    if (this.nameAddColumn != '')
+      if (this.firstSelectedAddColumn != '')
+        if (this.secondSelectedAddColumn != '')
+          if (this.operationSelectedAddColumn != '') {
+            this.service.addColumnService(this.dbName, this.tableName, this.nameAddColumn, this.idUser,
+              this.firstSelectedAddColumn, this.secondSelectedAddColumn, this.operationSelectedAddColumn);
+            this.onNoClick();
+          }
+          else
+            this.nameAddColumnFormControl.hasError('required')
+        else
+          this.firstSelectedAddColumnFormControl.hasError('required')
+      else
+        this.secondSelectedAddColumnFormControl.hasError('required')
+    else
+      this.operationSelectedAddColumnFormControl.hasError('required')
   }
 
   onNoClick(): void {

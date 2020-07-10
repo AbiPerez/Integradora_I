@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Inject } from '@angular/core';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { FormGroupDirective, FormControl, NgForm, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-drop-rule',
@@ -20,7 +21,7 @@ export class DropRuleComponent implements OnInit {
   ruleToDropFormControl = new FormControl('', [Validators.required]);
 
   constructor(public dialogRef: MatDialogRef<DropRuleComponent>,
-    @Inject(MAT_DIALOG_DATA) public data) {
+    @Inject(MAT_DIALOG_DATA) public data, private _snackBar: MatSnackBar) {
     let i: number = 0;
     this.rules = data.rules;
     if (data.rules.length != 0) {
@@ -56,6 +57,7 @@ export class DropRuleComponent implements OnInit {
         i++;
       }
       this.rules = rulesFilter;
+      this.openSnackBar('Rule droped!');
       this.onNoClick();
     }
     else
@@ -64,6 +66,14 @@ export class DropRuleComponent implements OnInit {
 
   onNoClick(): void {
     this.dialogRef.close(this.rules);
+  }
+
+  private openSnackBar(message: string) {
+    this._snackBar.open(message, 'X', {
+      duration: 3000,
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+    });
   }
 
 }

@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Inject } from '@angular/core';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { FormGroupDirective, FormControl, NgForm, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-rule',
@@ -27,7 +28,7 @@ export class AddRuleComponent implements OnInit {
   secondValueRuleFormControl = new FormControl('', [Validators.required]);
 
   constructor(public dialogRef: MatDialogRef<AddRuleComponent>,
-    @Inject(MAT_DIALOG_DATA) public data) {
+    @Inject(MAT_DIALOG_DATA) public data, private _snackBar: MatSnackBar) {
     this.displayedColumns = data.columns;
     this.idUser = data.id;
     this.dbName = data.db;
@@ -50,6 +51,7 @@ export class AddRuleComponent implements OnInit {
               fValue: this.firstValueRule,
               sValue: this.secondValueRule
             }
+            this.openSnackBar('Rule added!');
             this.onNoClick();
           }
         }
@@ -63,6 +65,14 @@ export class AddRuleComponent implements OnInit {
 
   onNoClick(): void {
     this.dialogRef.close(this.rule);
+  }
+
+  private openSnackBar(message: string) {
+    this._snackBar.open(message, 'X', {
+      duration: 3000,
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+    });
   }
 
 }

@@ -11,9 +11,9 @@ import { ErrorStateMatcher } from '@angular/material/core';
   styleUrls: ['./add-db.component.css']
 })
 export class AddDbComponent implements OnInit {
-  
+
   id: number;
-  name: string;
+  name: string = '';
   nameFormControl = new FormControl('', [Validators.required]);
   matcher = new MyErrorStateMatcher();
 
@@ -35,12 +35,15 @@ export class AddDbComponent implements OnInit {
   }
 
   addDB() {
-    if (this.name.split("/").length > 1)
-      this.name = '';
-    else {
-      this.service.addDbService(this.name, this.id);
-      this.onNoClick();
-    }
+    if (this.name != '')
+      if (this.name.split("/").length > 1)
+        this.name = '';
+      else {
+        this.service.addDbService(this.name, this.id);
+        this.onNoClick();
+      }
+    else
+      this.nameFormControl.hasError('required');
   }
 
 }

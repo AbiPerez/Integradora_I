@@ -17,7 +17,7 @@ export class AddTableComponent implements OnInit {
   file: File;
   name: string;
   nameFormControl = new FormControl('', [Validators.required]);
-  matcher = new MyErrorStateMatcher(); s
+  matcher = new MyErrorStateMatcher();
 
   constructor(private service: TreeTableService, public dialogRef: MatDialogRef<AddTableComponent>, private _snackBar: MatSnackBar) {
     let list = document.cookie.split(';');
@@ -27,7 +27,7 @@ export class AddTableComponent implements OnInit {
         this.id = Number.parseInt(item[1]);
       }
     }
-   }
+  }
 
   ngOnInit(): void {
   }

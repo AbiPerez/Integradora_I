@@ -478,7 +478,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             data: {
               "columns": this.displayedColumns,
               "id": this.id,
-              "db": this.activeDb[0],
+              "db": this.activeDb,
               "table": this.activeTables
             }
           }).afterClosed().subscribe(function (data) {
@@ -495,7 +495,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             data: {
               "columns": this.displayedColumns,
               "id": this.id,
-              "db": this.activeDb[0],
+              "db": this.activeDb,
               "table": this.activeTables
             }
           }).afterClosed().subscribe(function (data) {
@@ -512,7 +512,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             data: {
               "columns": this.displayedColumns,
               "id": this.id,
-              "db": this.activeDb[0],
+              "db": this.activeDb,
               "table": this.activeTables
             }
           }).afterClosed().subscribe(function (data) {
@@ -531,7 +531,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             data: {
               "rules": this.rules,
               "id": this.id,
-              "db": this.activeDb[0],
+              "db": this.activeDb,
               "table": this.activeTables
             }
           }).afterClosed().subscribe(function (data) {
@@ -3150,7 +3150,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](7);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", (!ctx.activeTables || !ctx.activeDb) && ctx.isLoged);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", !ctx.activeTables && ctx.isLoged);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
 
@@ -4502,7 +4502,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           return jquery__WEBPACK_IMPORTED_MODULE_1__["post"]('get_records', {
             "csrfmiddlewaretoken": cookie['value'],
             "idUser": id,
-            "nameDB": db[0],
+            "nameDB": db,
             "nameTable": table,
             "rulesToApply": rules
           });
@@ -5304,7 +5304,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           var ctx_r29 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
 
           ctx_r29.drawer.toggle();
-          return ctx_r29.dbTableCheked(_r26.selectedOptions.selected[0] == null ? null : _r26.selectedOptions.selected[0].value, db_r24);
+          return ctx_r29.dbTableCheked(_r26.selectedOptions.selected[0] == null ? null : _r26.selectedOptions.selected[0].value, db_r24[0]);
         });
 
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "span");
@@ -5564,16 +5564,21 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
               _this8.showDBs();
 
-              if (name == _this8.activeDB) _this8.dbActiveEvent.emit('');
+              if (name == _this8.activeDB) {
+                _this8.isDropTable = false;
+
+                _this8.dbTableCheked('', '');
+
+                _this8.isDropTable = false;
+              }
             }
           });
         }
       }, {
         key: "dropTable",
         value: function dropTable(name, db) {
-          this.isDropTable = true;
           this.service.dropDbTableService(name, this.id, db);
-          if (name == this.activeTable) this.tableActiveEvent.emit('');
+          if (name == this.activeTable) this.dbTableCheked('', '');
           this.showDBs();
         }
       }, {
@@ -5595,6 +5600,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         key: "dbTableCheked",
         value: function dbTableCheked(table_selected, db_selected) {
           if (!this.isDropTable) {
+            this.isDropTable = true;
             this.activeDB = db_selected;
             this.activeTable = table_selected;
             this.dbActiveEvent.emit(db_selected);

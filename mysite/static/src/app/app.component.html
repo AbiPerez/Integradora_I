@@ -18,7 +18,7 @@
     <button mat-raised-button class="button-menu" (click)="drawer.toggle(); checkLoged();">
       <mat-icon>menu_open</mat-icon>
     </button>
-    <ng-container *ngIf="(!activeTables || !activeDb) && isLoged"> 
+    <ng-container *ngIf="(!activeTables) && isLoged"> 
       <br>
       <br>
       <mat-icon style="font-size: 48px;">reply</mat-icon>

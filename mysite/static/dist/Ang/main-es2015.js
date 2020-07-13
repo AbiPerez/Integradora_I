@@ -225,7 +225,7 @@ class ActiveTablesComponent {
             data: {
                 "columns": this.displayedColumns,
                 "id": this.id,
-                "db": this.activeDb[0],
+                "db": this.activeDb,
                 "table": this.activeTables
             }
         }).afterClosed().subscribe(data => {
@@ -238,7 +238,7 @@ class ActiveTablesComponent {
             data: {
                 "columns": this.displayedColumns,
                 "id": this.id,
-                "db": this.activeDb[0],
+                "db": this.activeDb,
                 "table": this.activeTables
             }
         }).afterClosed().subscribe(data => {
@@ -251,7 +251,7 @@ class ActiveTablesComponent {
             data: {
                 "columns": this.displayedColumns,
                 "id": this.id,
-                "db": this.activeDb[0],
+                "db": this.activeDb,
                 "table": this.activeTables
             }
         }).afterClosed().subscribe(data => {
@@ -266,7 +266,7 @@ class ActiveTablesComponent {
             data: {
                 "rules": this.rules,
                 "id": this.id,
-                "db": this.activeDb[0],
+                "db": this.activeDb,
                 "table": this.activeTables
             }
         }).afterClosed().subscribe(data => {
@@ -1507,7 +1507,7 @@ AppComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineCompo
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.isLoged == true)("ngIfElse", _r2);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](7);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", (!ctx.activeTables || !ctx.activeDb) && ctx.isLoged);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", !ctx.activeTables && ctx.isLoged);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.isLoged == true)("ngIfElse", _r6);
     } }, directives: [_angular_material_sidenav__WEBPACK_IMPORTED_MODULE_2__["MatDrawerContainer"], _angular_material_sidenav__WEBPACK_IMPORTED_MODULE_2__["MatDrawer"], _angular_common__WEBPACK_IMPORTED_MODULE_3__["NgIf"], _angular_material_sidenav__WEBPACK_IMPORTED_MODULE_2__["MatDrawerContent"], _angular_material_button__WEBPACK_IMPORTED_MODULE_4__["MatButton"], _angular_material_icon__WEBPACK_IMPORTED_MODULE_5__["MatIcon"], _angular_router__WEBPACK_IMPORTED_MODULE_6__["RouterOutlet"], _tree_table_tree_table_component__WEBPACK_IMPORTED_MODULE_7__["TreeTableComponent"], _active_tables_active_tables_component__WEBPACK_IMPORTED_MODULE_8__["ActiveTablesComponent"], _login_login_component__WEBPACK_IMPORTED_MODULE_9__["LoginComponent"]], styles: [".example-container[_ngcontent-%COMP%] {\r\n    height: 100%;\r\n  }\r\n\r\nmat-drawer[_ngcontent-%COMP%] {\r\n  width: 350px;\r\n  padding: 10px;\r\n  align-content: center;\r\n}\r\n\r\nmat-drawer-content[_ngcontent-%COMP%] {\r\n  height: 100%;\r\n  margin-left: 5px;\r\n  padding-right: 5px;\r\n}\r\n\r\n.button-menu[_ngcontent-%COMP%] {\r\n    margin-top: 5px;\r\n}\r\n\r\n.login-alignement[_ngcontent-%COMP%] {\r\n  \r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  align-self: center;\r\n  text-align: center;\r\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksWUFBWTtFQUNkOztBQUVGO0VBQ0UsWUFBWTtFQUNaLGFBQWE7RUFDYixxQkFBcUI7QUFDdkI7O0FBRUE7RUFDRSxZQUFZO0VBQ1osZ0JBQWdCO0VBQ2hCLGtCQUFrQjtBQUNwQjs7QUFFQTtJQUNJLGVBQWU7QUFDbkI7O0FBRUE7O0VBRUUsYUFBYTtFQUNiLHNCQUFzQjtFQUN0QixtQkFBbUI7RUFDbkIsa0JBQWtCO0VBQ2xCLGtCQUFrQjtBQUNwQiIsImZpbGUiOiJhcHAuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5leGFtcGxlLWNvbnRhaW5lciB7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbiAgfVxyXG5cclxubWF0LWRyYXdlciB7XHJcbiAgd2lkdGg6IDM1MHB4O1xyXG4gIHBhZGRpbmc6IDEwcHg7XHJcbiAgYWxpZ24tY29udGVudDogY2VudGVyO1xyXG59XHJcbiAgXHJcbm1hdC1kcmF3ZXItY29udGVudCB7XHJcbiAgaGVpZ2h0OiAxMDAlO1xyXG4gIG1hcmdpbi1sZWZ0OiA1cHg7XHJcbiAgcGFkZGluZy1yaWdodDogNXB4O1xyXG59XHJcblxyXG4uYnV0dG9uLW1lbnUge1xyXG4gICAgbWFyZ2luLXRvcDogNXB4O1xyXG59XHJcblxyXG4ubG9naW4tYWxpZ25lbWVudCB7XHJcbiAgXHJcbiAgZGlzcGxheTogZmxleDtcclxuICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xyXG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAgYWxpZ24tc2VsZjogY2VudGVyO1xyXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcclxufSJdfQ== */"] });
@@ -2213,7 +2213,7 @@ class ActiveTablesService {
         return jquery__WEBPACK_IMPORTED_MODULE_1__["post"]('get_records', {
             "csrfmiddlewaretoken": cookie['value'],
             "idUser": id,
-            "nameDB": db[0],
+            "nameDB": db,
             "nameTable": table,
             "rulesToApply": rules
         });
@@ -2650,7 +2650,7 @@ __webpack_require__.r(__webpack_exports__);
 function TreeTableComponent_mat_accordion_6_mat_list_option_25_Template(rf, ctx) { if (rf & 1) {
     const _r30 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "mat-list-option", 11);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function TreeTableComponent_mat_accordion_6_mat_list_option_25_Template_mat_list_option_click_0_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r30); const db_r24 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]().$implicit; const _r26 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](24); const ctx_r29 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); ctx_r29.drawer.toggle(); return ctx_r29.dbTableCheked(_r26.selectedOptions.selected[0] == null ? null : _r26.selectedOptions.selected[0].value, db_r24); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function TreeTableComponent_mat_accordion_6_mat_list_option_25_Template_mat_list_option_click_0_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r30); const db_r24 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]().$implicit; const _r26 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](24); const ctx_r29 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); ctx_r29.drawer.toggle(); return ctx_r29.dbTableCheked(_r26.selectedOptions.selected[0] == null ? null : _r26.selectedOptions.selected[0].value, db_r24[0]); });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "span");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "button", 12);
@@ -2765,16 +2765,18 @@ class TreeTableComponent {
             if (result.value) {
                 this.service.dropDbService(name, this.id);
                 this.showDBs();
-                if (name == this.activeDB)
-                    this.dbActiveEvent.emit('');
+                if (name == this.activeDB) {
+                    this.isDropTable = false;
+                    this.dbTableCheked('', '');
+                    this.isDropTable = false;
+                }
             }
         });
     }
     dropTable(name, db) {
-        this.isDropTable = true;
         this.service.dropDbTableService(name, this.id, db);
         if (name == this.activeTable)
-            this.tableActiveEvent.emit('');
+            this.dbTableCheked('', '');
         this.showDBs();
     }
     downloadDB(db) {
@@ -2788,6 +2790,7 @@ class TreeTableComponent {
     }
     dbTableCheked(table_selected, db_selected) {
         if (!this.isDropTable) {
+            this.isDropTable = true;
             this.activeDB = db_selected;
             this.activeTable = table_selected;
             this.dbActiveEvent.emit(db_selected);

@@ -77,7 +77,7 @@ export class ActiveTablesComponent implements OnInit, OnChanges {
       data: {
         "columns": this.displayedColumns,
         "id": this.id,
-        "db": this.activeDb[0],
+        "db": this.activeDb,
         "table": this.activeTables
       }
     }).afterClosed().subscribe(data => {
@@ -91,7 +91,7 @@ export class ActiveTablesComponent implements OnInit, OnChanges {
       data: {
         "columns": this.displayedColumns,
         "id": this.id,
-        "db": this.activeDb[0],
+        "db": this.activeDb,
         "table": this.activeTables
       }
     }).afterClosed().subscribe(data => {
@@ -105,7 +105,7 @@ export class ActiveTablesComponent implements OnInit, OnChanges {
       data: {
         "columns": this.displayedColumns,
         "id": this.id,
-        "db": this.activeDb[0],
+        "db": this.activeDb,
         "table": this.activeTables
       }
     }).afterClosed().subscribe(data => {
@@ -121,7 +121,7 @@ export class ActiveTablesComponent implements OnInit, OnChanges {
       data: {
         "rules": this.rules,
         "id": this.id,
-        "db": this.activeDb[0],
+        "db": this.activeDb,
         "table": this.activeTables
       }
     }).afterClosed().subscribe(data => {

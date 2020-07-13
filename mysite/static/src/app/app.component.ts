@@ -53,7 +53,7 @@ export class AppComponent {
   receiveTableActive($event) {
     this.activeTables = $event;
   }
-
+  
   receiveDbActive($event) {
     this.activeDb = $event;
   }

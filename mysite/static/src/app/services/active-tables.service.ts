@@ -19,7 +19,7 @@ export class ActiveTablesService {
       {
         "csrfmiddlewaretoken": cookie['value'],
         "idUser": id,
-        "nameDB": db[0],
+        "nameDB": db,
         "nameTable": table,
         "rulesToApply": rules
       }

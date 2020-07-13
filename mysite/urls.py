@@ -1,5 +1,7 @@
 from rest_app import views
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.Index.as_view()),
@@ -16,4 +18,4 @@ urlpatterns = [
     path('getDb', views.download_db),
     path('set_new_column', views.set_db_table),
     path('drop_column', views.drop_db_table_column)
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -1,3 +1,4 @@
+<h3>Add a new rule!</h3>
 <form class="example-form">
     <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Select a column</mat-label>
@@ -16,10 +17,10 @@
         <mat-label>Select a rule</mat-label>
         <mat-select [(value)]="ruleSelectedAddRule" [formControl]="ruleSelectedAddRuleFormControl"
             [errorStateMatcher]="matcher">
-            <mat-option value="<"><</mat-option>
-            <mat-option value=">">></mat-option>
-            <mat-option value="<="><=</mat-option>
-            <mat-option value=">=">>=</mat-option>
+            <mat-option value="<">< (start with)</mat-option>
+            <mat-option value=">">> (end with)</mat-option>
+            <mat-option value="<="><= (not contains)</mat-option>
+            <mat-option value=">=">>= (contains)</mat-option>
             <mat-option value="=">=</mat-option>
             <mat-option value="!=">!=</mat-option>
             <mat-option value="<>">Between</mat-option>
@@ -56,7 +57,7 @@
 
     <br><br>
 
-    <div mat-dialog-actions class="text-center">
+    <div class="text-center">
         <button mat-flat-button (click)="onNoClick()">No Thanks</button>
         <button mat-flat-button color="primary" (click)="addRule()">
             Add rule <mat-icon>add_circle_outline</mat-icon></button>

@@ -5,14 +5,12 @@
         You are logged! <button mat-button color="warn" (click)="logOut()">Log-out <mat-icon>exit_to_app</mat-icon>
         </button>
       </p>
-      <mat-divider></mat-divider>
-      <br>
       <app-tree-table (dbActiveEvent)="receiveDbActive($event)" (tableActiveEvent)="receiveTableActive($event)" [drawer]="drawer">
       </app-tree-table>
     </div>
     <ng-template #notLoggedSidebar>
       <h3>
-        <mat-icon>error</mat-icon> You need to be logged to see your DB's!
+        <mat-icon style="font-size: 48px;">error</mat-icon> You need to be logged to see your DB's!
       </h3>
     </ng-template>
   </mat-drawer>
@@ -20,7 +18,7 @@
     <button mat-raised-button class="button-menu" (click)="drawer.toggle(); checkLoged();">
       <mat-icon>menu_open</mat-icon>
     </button>
-    <ng-container *ngIf="!activeDb && isLoged"> 
+    <ng-container *ngIf="(!activeTables || !activeDb) && isLoged"> 
       <br>
       <br>
       <mat-icon style="font-size: 48px;">reply</mat-icon>

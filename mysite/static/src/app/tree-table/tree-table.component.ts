@@ -16,8 +16,11 @@ export class TreeTableComponent implements OnInit {
 
   @Input()
   drawer: MatDrawer;
+  activeDB: string;
+  activeTable: string;
   dbs: string[];
   id: number;
+  isDropTable: boolean = false;
 
   @Output() dbActiveEvent = new EventEmitter<string>();
   @Output() tableActiveEvent = new EventEmitter<string>();
@@ -64,12 +67,17 @@ export class TreeTableComponent implements OnInit {
       if (result.value) {
         this.service.dropDbService(name, this.id)
         this.showDBs();
+        if (name == this.activeDB)
+          this.dbActiveEvent.emit('');
       }
     })
   }
 
   dropTable(name: string, db: string) {
+    this.isDropTable = true;
     this.service.dropDbTableService(name, this.id, db);
+    if (name == this.activeTable)
+      this.tableActiveEvent.emit('');
     this.showDBs();
   }
 
@@ -85,8 +93,14 @@ export class TreeTableComponent implements OnInit {
   }
 
   dbTableCheked(table_selected, db_selected) {
-    this.dbActiveEvent.emit(db_selected);
-    this.tableActiveEvent.emit(table_selected);
+    if (!this.isDropTable) {
+      this.activeDB = db_selected;
+      this.activeTable = table_selected;
+      this.dbActiveEvent.emit(db_selected);
+      this.tableActiveEvent.emit(table_selected);
+    }
+    else
+      this.isDropTable = false;
   }
 
 }

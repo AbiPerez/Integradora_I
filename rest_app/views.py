@@ -119,17 +119,53 @@ def get_db_table_records(request, *args, **kwargs):
     idUser = str(request.POST['idUser'])
     nameDB = str(request.POST['nameDB'])
     nameTable = str(request.POST['nameTable'])
+    state = 200 
     
     rulesToApply = json.loads(request.POST['rulesToApply'])
-    if rulesToApply != 'noRules':
-        print(rulesToApply)
-    
+
     dataFrame = pd.read_csv('db_reception/db_list_user_' +
                             idUser + '/' + nameDB + '/' + nameTable + '.csv')
     
+
+    switcher = {
+        '<': lambda column, dataVal: dataFrame[column] < dataVal,
+        '>': lambda column, dataVal: dataFrame[column] > dataVal,
+        '<=': lambda column, dataVal: dataFrame[column] <= dataVal,
+        '>=': lambda column, dataVal: dataFrame[column] >= dataVal,
+        '<S': lambda column, dataVal: dataFrame[column].str.endswith(dataVal),
+        '>S': lambda column, dataVal: dataFrame[column].str.startswith(dataVal),
+        '<=S': lambda column, dataVal: ~dataFrame[column].str.contains(dataVal),
+        '>=S': lambda column, dataVal: dataFrame[column].str.contains(dataVal),
+        '=': lambda column, dataVal: dataFrame[column] == dataVal,
+        '!=': lambda column, dataVal: dataFrame[column] != dataVal,
+        '<>': lambda column, dataValA, dataValB: (dataFrame[column] >= dataValA) & (dataFrame[column] <= dataValB)
+    }
+           
+    if rulesToApply[0] != 'noRules':
+        for item in rulesToApply:
+            if dataFrame[item['column']].dtype != 'object':
+                try:
+                    item['fValue'] = float(item['fValue'])
+                    if item['sValue'] != '':
+                        item['sValue'] = float(item['sValue'])
+                    else:
+                        item['rule'] += 'S'
+
+                    function = switcher[item['rule']]
+                    
+                    if item['rule'] != '<>':
+                        filter = function(item['column'], item['fValue'])
+                    else:
+                        filter = function(item['column'], item['fValue'], item['sValue'])
+                    dataFrame = dataFrame.loc[filter]
+                except:
+                    state = 505
+    
+       
     return JsonResponse({
         'columns': list(dataFrame.columns),
-        'data': dataFrame.values.tolist()
+        'data': dataFrame.values.tolist(),
+        'state': state
     })
 
 

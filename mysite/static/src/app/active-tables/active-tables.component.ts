@@ -5,6 +5,8 @@ import { AddColumnComponent } from '../add-column/add-column.component';
 import { DropColumnComponent } from '../drop-column/drop-column.component';
 import { AddRuleComponent } from '../add-rule/add-rule.component';
 import { DropRuleComponent } from '../drop-rule/drop-rule.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-active-tables',
@@ -24,7 +26,7 @@ export class ActiveTablesComponent implements OnInit, OnChanges {
   dataSource: any[];
   rules: any[] = [];
 
-  constructor(private service: ActiveTablesService, public dialog: MatDialog) {
+  constructor(private service: ActiveTablesService, public dialog: MatDialog, private _snackBar: MatSnackBar) {
     let list = document.cookie.split(';');
     for (const iterator of list) {
       let item = iterator.split('=');
@@ -36,7 +38,12 @@ export class ActiveTablesComponent implements OnInit, OnChanges {
 
   ngOnInit(): void { }
   ngOnChanges(changes: SimpleChanges): void {
-    this.chargeDataOnWorkSpace();
+    if (this.activeTables == '' || this.activeDb == '') {
+      this.dataSource = [];
+      this.displayedColumns = Array();
+    }
+    else
+      this.chargeDataOnWorkSpace();
   }
 
   chargeDataOnWorkSpace() {
@@ -53,6 +60,12 @@ export class ActiveTablesComponent implements OnInit, OnChanges {
           this.displayedColumns = data['columns'];
           this.dataSource = data['data'];
           this.isCharging = false;
+          if (data['state'] == 505) {
+            this.openSnackBar('Values of the rule was incorrect!');
+            this.rules.pop();
+          }
+          else
+            this.openSnackBar('Data succesfully loaded!');
         }
       );
     }
@@ -96,7 +109,7 @@ export class ActiveTablesComponent implements OnInit, OnChanges {
         "table": this.activeTables
       }
     }).afterClosed().subscribe(data => {
-      if(data!=undefined)
+      if (data != undefined)
         this.rules.push(data);
       this.chargeDataOnWorkSpace();
     });
@@ -115,6 +128,14 @@ export class ActiveTablesComponent implements OnInit, OnChanges {
       if (data != undefined)
         this.rules = data;
       this.chargeDataOnWorkSpace();
+    });
+  }
+
+  private openSnackBar(message: string) {
+    this._snackBar.open(message, 'X', {
+      duration: 3000,
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
     });
   }
 

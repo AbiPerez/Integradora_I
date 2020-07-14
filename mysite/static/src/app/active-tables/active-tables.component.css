@@ -1,0 +1,56 @@
+table {
+  width: 100%;
+}
+
+th, td {
+  overflow: auto;
+  border-right: 1px solid grey;
+  text-align: center !important;
+  min-width: 200px !important;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+
+section {
+  display: table;
+  margin: 8px;
+}
+
+.example-container {
+  height: 500px;
+  overflow: auto;
+}
+
+.example-label {
+  display: table-cell;
+  font-size: 14px;
+  margin-left: 8px;
+  width: 120px;
+}
+
+.example-button-row {
+  display: table-cell;
+}
+
+.example-button-row button {
+  display: table-cell;
+  margin-right: 8px;
+}
+
+.example-flex-container {
+  display: flex;
+  justify-content: space-between;
+  width: 480px;
+}
+
+.example-button-container {
+  display: flex;
+  justify-content: center;
+  width: 120px;
+}
+
+.loading {
+  position: absolute;
+  right: 40%;
+  top: 40%;
+}

@@ -1,0 +1,39 @@
+<mat-drawer-container class="example-container" [hasBackdrop]="true">
+  <mat-drawer #drawer [mode]="true">
+    <div *ngIf="isLoged==true;else notLoggedSidebar">
+      <p>
+        You are logged! <button mat-button color="warn" (click)="logOut()">Log-out <mat-icon>exit_to_app</mat-icon>
+        </button>
+      </p>
+      <app-tree-table (dbActiveEvent)="receiveDbActive($event)" (tableActiveEvent)="receiveTableActive($event)" [drawer]="drawer">
+      </app-tree-table>
+    </div>
+    <ng-template #notLoggedSidebar>
+      <h3>
+        <mat-icon style="font-size: 48px;">error</mat-icon> You need to be logged to see your DB's!
+      </h3>
+    </ng-template>
+  </mat-drawer>
+  <mat-drawer-content>
+    <button mat-raised-button class="button-menu" (click)="drawer.toggle(); checkLoged();">
+      <mat-icon>menu_open</mat-icon>
+    </button>
+    <ng-container *ngIf="(!activeTables) && isLoged"> 
+      <br>
+      <br>
+      <mat-icon style="font-size: 48px;">reply</mat-icon>
+      <h1>No table selected!</h1>
+      <h2>Search on the sidebar to add or view some item!</h2>
+    </ng-container>
+    <div *ngIf="isLoged==true;else notLoggedContent">
+      <app-active-tables [activeTables]="activeTables" [activeDb]="activeDb"></app-active-tables>
+    </div>
+    <ng-template #notLoggedContent>
+      <br>
+      <app-login class="login-alignement"></app-login>
+    </ng-template>
+  </mat-drawer-content>
+</mat-drawer-container>
+
+
+<router-outlet></router-outlet>

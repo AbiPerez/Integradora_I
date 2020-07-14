@@ -1,0 +1,21 @@
+<h3>Drop an existing column!</h3>
+<form class="example-form">
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Select a column</mat-label>
+        <mat-select [(value)]="selectedDropColumn" [formControl]="selectedDropColumnFormControl"
+            [errorStateMatcher]="matcher">
+            <mat-option *ngFor="let item of displayedColumns" value="{{item}}">{{item}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="selectedDropColumnFormControl.hasError('required')">
+            Column select is <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
+
+    <br><br>
+
+    <div class="text-center">
+        <button mat-flat-button (click)="onNoClick()">No Thanks</button>
+        <button mat-flat-button color="primary" (click)="dropColumn()">
+            Drop column <mat-icon>delete_outline</mat-icon></button>
+    </div>
+</form>

@@ -1,0 +1,48 @@
+<h1 mat-dialog-title>Register you here!</h1>
+<div mat-dialog-content>
+    <form class="example-form">
+        <mat-form-field class="example-full-width">
+            <mat-label>Username</mat-label>
+            <input matInput [formControl]="usernameFormControl" [errorStateMatcher]="matcher"
+                placeholder="Write your username here" [(ngModel)]="username">
+            <mat-hint>It looks okey!</mat-hint>
+            <mat-error *ngIf="usernameFormControl.hasError('required')">
+                Username is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="usernameFormControl.hasError('minlength')">
+                Username min length is <strong>8 characters</strong>
+            </mat-error>
+        </mat-form-field>
+        <br><br>
+        <mat-form-field class="example-full-width">
+            <mat-label>Password</mat-label>
+            <input type="password" matInput [formControl]="passwordFormControl" [errorStateMatcher]="matcher"
+                placeholder="Write your password here" [(ngModel)]="password">
+            <mat-hint>It looks okey!</mat-hint>
+            <mat-error *ngIf="passwordFormControl.hasError('required')">
+                Password is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="passwordFormControl.hasError('minlength')">
+                Password min length is <strong>8 characters</strong>
+            </mat-error>
+        </mat-form-field>
+        <br><br>
+        <mat-form-field class="example-full-width">
+            <mat-label>Confirm password</mat-label>
+            <input type="password" matInput [formControl]="passwordConfirmFormControl" [errorStateMatcher]="matcher"
+                placeholder="Rewrite your password here" [(ngModel)]="passwordConfirm">
+            <mat-hint>It looks okey!</mat-hint>
+            <mat-error *ngIf="passwordConfirmFormControl.hasError('required')">
+                Password not match
+            </mat-error>
+            <mat-error *ngIf="passwordConfirmFormControl.hasError('minlength')">
+                Password confirm min length is <strong>8 characters</strong>
+            </mat-error>
+        </mat-form-field>
+    </form>
+</div>
+<br>
+<div  class="text-center">
+    <button mat-raised-button color="accent" (click)="onNoClick()">No Thanks <mat-icon>close</mat-icon></button>
+    <button mat-raised-button color="primary" (click)="addUser()">Sign-in <mat-icon>how_to_reg</mat-icon></button>
+</div>

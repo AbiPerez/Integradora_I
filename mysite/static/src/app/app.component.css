@@ -1,0 +1,28 @@
+.example-container {
+    height: 100%;
+  }
+
+mat-drawer {
+  width: 350px;
+  padding: 10px;
+  align-content: center;
+}
+  
+mat-drawer-content {
+  height: 100%;
+  margin-left: 5px;
+  padding-right: 5px;
+}
+
+.button-menu {
+    margin-top: 5px;
+}
+
+.login-alignement {
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: center;
+  text-align: center;
+}

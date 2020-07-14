@@ -1,0 +1,65 @@
+<h3>Add a new rule!</h3>
+<form class="example-form">
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Select a column</mat-label>
+        <mat-select [(value)]="columnToApply" [formControl]="columnToApplyFormControl"
+            [errorStateMatcher]="matcher">
+            <mat-option *ngFor="let item of displayedColumns" value="{{item}}">{{item}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="columnToApplyFormControl.hasError('required')">
+            Column select is <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
+
+    <br><br>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Select a rule</mat-label>
+        <mat-select [(value)]="ruleSelectedAddRule" [formControl]="ruleSelectedAddRuleFormControl"
+            [errorStateMatcher]="matcher">
+            <mat-option value="<">< (start with)</mat-option>
+            <mat-option value=">">> (end with)</mat-option>
+            <mat-option value="<="><= (not contains)</mat-option>
+            <mat-option value=">=">>= (contains)</mat-option>
+            <mat-option value="=">=</mat-option>
+            <mat-option value="!=">!=</mat-option>
+            <mat-option value="<>">Between</mat-option>
+        </mat-select>
+        <mat-error *ngIf="ruleSelectedAddRuleFormControl.hasError('required')">
+            Rule select is <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
+
+    <br><br>
+    
+    <mat-form-field class="example-full-width">
+        <mat-label>Value for the rule</mat-label>
+        <input matInput [formControl]="firstValueRuleFormControl" [errorStateMatcher]="matcher"
+            placeholder="Write here the value of the rule" [(ngModel)]="firstValueRule">
+        <mat-error *ngIf="firstValueRuleFormControl.hasError('required')">
+            Value is <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
+
+    <ng-container *ngIf="ruleSelectedAddRule == '<>'">
+
+        <br><br>
+        
+        <mat-form-field class="example-full-width">
+            <mat-label>Value for the rule</mat-label>
+            <input matInput [formControl]="secondValueRuleFormControl" [errorStateMatcher]="matcher"
+            placeholder="Write here your new column name" [(ngModel)]="secondValueRule">
+            <mat-error *ngIf="secondValueRuleFormControl.hasError('required')">
+                Value is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+    </ng-container>
+
+    <br><br>
+
+    <div class="text-center">
+        <button mat-flat-button (click)="onNoClick()">No Thanks</button>
+        <button mat-flat-button color="primary" (click)="addRule()">
+            Add rule <mat-icon>add_circle_outline</mat-icon></button>
+    </div>
+</form>
